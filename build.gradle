@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group = 'dev.zeith.fragfile'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    ////// UTILITY STUFF //////
+    compileOnly "org.projectlombok:lombok:$lombok"
+    annotationProcessor "org.projectlombok:lombok:$lombok"
+    ///////////////////////////
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.register('srcJar', Jar) {
+    dependsOn classes
+    from sourceSets.main.allSource
+    archiveClassifier = 'sources'
+}
+
+tasks.register('javadocJar', Jar) {
+    dependsOn classes
+    from javadoc
+    archiveClassifier = 'javadoc'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'dev.zeith.libs'
+            artifactId = 'FragFile'
+            from components.java
+
+            pom {
+                name = 'FragFile'
+                description = 'Read/writing files into fragments with a root header file.'
+            }
+
+            artifact srcJar
+            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            url System.env.MAVEN_URL
+        }
+    }
+}
