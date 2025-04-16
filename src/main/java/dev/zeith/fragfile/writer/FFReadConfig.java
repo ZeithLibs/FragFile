@@ -1,6 +1,9 @@
 package dev.zeith.fragfile.writer;
 
+import dev.zeith.fragfile.FragFileHeader;
 import lombok.*;
+
+import java.util.function.Consumer;
 
 @With
 @Data
@@ -11,4 +14,6 @@ public class FFReadConfig
 	
 	@Builder.Default
 	int chunkRetryAttempts = 25; // 25 retries
+	
+	Consumer<FragFileHeader> onInitialHeaderRead;
 }

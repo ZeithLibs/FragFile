@@ -18,6 +18,9 @@ public class FragmentedFile
 			header = FragFileHeader.read(in);
 		}
 		
+		if(config.getOnInitialHeaderRead() != null)
+			config.getOnInitialHeaderRead().accept(header);
+		
 		List<CompletableFuture<Boolean>> futures = new ArrayList<>();
 		
 		FFHashers hh = new FFHashers(header.getHashAlgorithm());
