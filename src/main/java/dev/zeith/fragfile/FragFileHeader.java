@@ -7,10 +7,11 @@ import java.io.*;
 import java.util.*;
 
 @Getter
-@Builder
+@Builder(toBuilder = true)
 @ToString
 @EqualsAndHashCode
 @RequiredArgsConstructor
+@With
 public class FragFileHeader
 {
 	private static final long MAGIC_NUM = 0xFAFEEAEBL;
@@ -21,7 +22,7 @@ public class FragFileHeader
 	private final long chunkSize;
 	private final String hashAlgorithm;
 	private final String fileHash;
-	private final List<String> partHashes;
+	private final @Singular List<String> partHashes;
 	
 	public static FragFileHeader read(DataInputStream input)
 			throws IOException

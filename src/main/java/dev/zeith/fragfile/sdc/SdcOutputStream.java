@@ -88,31 +88,37 @@ public class SdcOutputStream
 		output.close();
 	}
 	
-	public void fromFile(Path root, Path path)
+	public long fromFile(Path root, Path path)
 			throws IOException
 	{
 		putNextEntry(SdcEntry.createHeader(root, path));
-		copyFrom(Files.newInputStream(path));
+		return copyFrom(Files.newInputStream(path));
 	}
 	
-	public void fromFile(String name, Path path)
+	public long fromFile(String name, Path path)
 			throws IOException
 	{
 		putNextEntry(SdcEntry.createHeader(name, path));
-		copyFrom(Files.newInputStream(path));
+		return copyFrom(Files.newInputStream(path));
 	}
 	
-	public void copyFrom(InputStream stream)
+	public long copyFrom(InputStream stream)
 			throws IOException
 	{
+		long a = 0L;
 		try
 		{
 			byte[] buf = new byte[2048];
 			int r;
-			while((r = stream.read(buf)) > 0) write(buf, 0, r);
+			while((r = stream.read(buf)) > 0)
+			{
+				write(buf, 0, r);
+				a += r;
+			}
 		} finally
 		{
 			stream.close();
 		}
+		return a;
 	}
 }
