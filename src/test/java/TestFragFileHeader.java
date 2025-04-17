@@ -5,6 +5,7 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.Arrays;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TestFragFileHeader
 {
 	protected static final Path headerFile = Paths.get("test", "test.hdr");
@@ -22,6 +23,7 @@ public class TestFragFileHeader
 	}
 	
 	@Test
+	@Order(1)
 	public void testWrite()
 			throws IOException
 	{
@@ -42,6 +44,7 @@ public class TestFragFileHeader
 	}
 	
 	@Test
+	@Order(2)
 	public void testRead()
 			throws IOException
 	{

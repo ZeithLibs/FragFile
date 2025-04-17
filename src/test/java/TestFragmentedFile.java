@@ -8,6 +8,9 @@ import java.nio.file.*;
 import java.util.*;
 import java.util.concurrent.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TestFragmentedFile
 {
 	protected static final Path frag = Paths.get("test", "fragmented");
@@ -56,6 +59,7 @@ public class TestFragmentedFile
 	}
 	
 	@Test
+	@Order(1)
 	public void create()
 			throws IOException
 	{
@@ -66,6 +70,7 @@ public class TestFragmentedFile
 	}
 	
 	@Test
+	@Order(2)
 	public void read()
 			throws IOException
 	{
@@ -98,6 +103,6 @@ public class TestFragmentedFile
 		System.out.println("Input: " + in);
 		System.out.println("Output: " + out);
 		
-		assert Objects.equals(in, out);
+		assertEquals(in, out);
 	}
 }

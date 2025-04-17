@@ -1,5 +1,6 @@
 package dev.zeith.fragfile;
 
+import dev.zeith.fragfile.errors.FragFileIOException;
 import lombok.*;
 
 import java.io.*;

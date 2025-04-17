@@ -1,4 +1,4 @@
-package dev.zeith.fragfile;
+package dev.zeith.fragfile.errors;
 
 public class FragFileIOException
 		extends RuntimeException
